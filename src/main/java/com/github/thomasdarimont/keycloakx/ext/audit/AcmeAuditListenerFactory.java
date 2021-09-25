@@ -6,6 +6,9 @@ import org.keycloak.events.EventListenerProvider;
 import org.keycloak.events.EventListenerProviderFactory;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.KeycloakSessionFactory;
+import org.keycloak.models.utils.PostMigrationEvent;
+import org.keycloak.provider.ProviderEvent;
+import org.keycloak.provider.ProviderEventListener;
 
 @AutoService(EventListenerProviderFactory.class)
 public class AcmeAuditListenerFactory implements EventListenerProviderFactory {
@@ -28,7 +31,13 @@ public class AcmeAuditListenerFactory implements EventListenerProviderFactory {
     }
 
     @Override // we could init our provider with information from other providers
-    public void postInit(KeycloakSessionFactory factory) { /* post-process factory */ }
+    public void postInit(KeycloakSessionFactory factory) { /* post-process factory */
+        factory.register(event -> {
+            if (event instanceof PostMigrationEvent) {
+                System.out.println("Hello from custom extension: " + getId());
+            }
+        });
+    }
 
     @Override // close resources if necessary
     public void close() { /* release resources if necessary */ }
