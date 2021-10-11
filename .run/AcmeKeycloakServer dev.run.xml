@@ -1,5 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Acme Keycloak Server" type="Application" factoryName="Application">
+  <configuration default="false" name="AcmeKeycloakServer dev" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="11" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="MAIN_CLASS_NAME" value="com.github.thomasdarimont.keycloakx.AcmeKeycloakServer" />
     <module name="acme-keycloakx-demo" />
     <option name="VM_PARAMETERS" value="-Dkc.home.dir=./keycloakx" />

@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.example</groupId>
     <artifactId>acme-keycloakx-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>17</java.version>
+        <auto-service.version>1.0</auto-service.version>
+        <java.version>11</java.version>
+        <lombok.version>1.18.20</lombok.version>
+        <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.compiler.parameters>true</maven.compiler.parameters>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <quarkus.version>2.2.3.Final</quarkus.version>
-
+        <quarkus.version>2.3.0.Final</quarkus.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-        <lombok.version>1.18.20</lombok.version>
-        <auto-service.version>1.0</auto-service.version>
+        <keycloak-server.version>16.0.0-SNAPSHOT</keycloak-server.version>
+        <microprofile-config-api.version>2.0</microprofile-config-api.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-quarkus-server</artifactId>
-            <version>16.0.0-SNAPSHOT</version>
+            <version>${keycloak-server.version}</version>
+        </dependency>
+
+        <dependency>
+            <!-- Added missing microprofile-config-api dependency -->
+            <groupId>org.eclipse.microprofile.config</groupId>
+            <artifactId>microprofile-config-api</artifactId>
+            <version>${microprofile-config-api.version}</version>
         </dependency>
 
         <dependency>
@@ -36,7 +43,6 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
-
         <dependency>
             <groupId>com.google.auto.service</groupId>
             <artifactId>auto-service</artifactId>
@@ -44,10 +50,7 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
-
-
     </dependencies>
-
     <build>
         <finalName>keycloak</finalName>
         <plugins>
@@ -64,9 +67,6 @@
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <version>${quarkus.version}</version>
-                <configuration>
-                    <finalName>keycloak</finalName>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -74,9 +74,10 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <finalName>keycloak</finalName>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-
-
 </project>
